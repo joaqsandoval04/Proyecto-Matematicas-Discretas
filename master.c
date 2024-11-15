@@ -19,10 +19,53 @@ typedef struct {
     int **adyacencia;
 } Grafo;
 
+// Función para obtener el grado máximo de un grafo
+int GradoMáximo(Grafo g){
+    int grado_maximo = 0;
+    int aux = 0;
+    for (int i = 0; i < g.vertices; i++){
+        for (int j = 0; j < g.vertices; j++){
+                if (g.adyacencia[i][j] != 0){
+                    aux += 1;
+                }
+        }
+        if (aux > grado_maximo){
+            grado_maximo = aux;
+        }
+        aux = 0;
+    }
+
+    return grado_maximo;
+}
+
+// Función para obtener el grado máximo de un grafo
+int GradoMínimo(Grafo g){
+    int grado_minimo = 0;
+    int aux = 0;
+    for (int i = 0; i < g.vertices; i++){
+        for (int j = 0; j < g.vertices; j++){
+                if (g.adyacencia[i][j] != 0){
+                    aux += 1;
+                }
+        }
+        if (i == 0){
+            grado_minimo = aux;
+            continue;
+        }
+        if (aux < grado_minimo){
+            grado_minimo = aux;
+        }
+        aux = 0;
+    }
+
+    return grado_minimo;
+}
+
 
 int main(){
     Grafo g;
-    g.vertices = 3;
+
+    scanf("%d", &g.vertices);
 
     g.adyacencia = (int**)malloc(g.vertices * sizeof(int*));
     for (int i = 0; i < g.vertices; i++) {
@@ -56,11 +99,10 @@ int main(){
         printf("\n");
     }
 
-}
-int tamaño_grafo = 5;
+    // Imprimir grado máximo del grafo
+    printf("Grado Maximo: %d\n", GradoMáximo(g));
 
-bool EliminarVértices(int k){
-    if (tamaño_grafo <= k){
-        return false;
-    }
+    // Imprimir grado mínimo del grafo
+    printf("Grado Minimo: %d", GradoMínimo(g));
+
 }
