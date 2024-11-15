@@ -61,6 +61,28 @@ int GradoMínimo(Grafo g){
     return grado_minimo;
 }
 
+// Funcion para determinar la conexidad
+bool conexidad(Grafo g){
+    // Crear lista para guardar los nodos visitados, rellenarla con 0 para evitar conflicto
+    int nodos_visitados[g.vertices];
+    for (int i = 0; i < g.vertices; i++){
+        nodos_visitados[i] = 0;
+    }
+
+    nodos_visitados[0] = g.adyacencia[0][0]; // Marcar el nodo 1 como visitado
+    // Luego visitar los n nodos que tiene adyacente el nodo 1
+
+    // Añadir todos estos nodos de adyacencia a la lista de nodos_visitados, de manera ordenada (El 2 en el puesto 2, etc)
+    for (int i = 0; i < g.vertices; i++){
+        if (g.adyacencia[0][i] != 0){
+            nodos_visitados[(g.adyacencia[0][i]) - 1] = g.adyacencia[0][i];
+        }
+    }
+    // Repetir el mismo paso para los vértices de adyacencia de 1, pero sólo los que no estén en la lista
+    // Verificar si está o no en la lista
+    
+}
+
 
 int main(){
     Grafo g;
@@ -105,4 +127,8 @@ int main(){
     // Imprimir grado mínimo del grafo
     printf("Grado Minimo: %d", GradoMínimo(g));
 
+    // Llamar a conexidad
+    conexidad(g);
+
 }
+
