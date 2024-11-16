@@ -116,9 +116,9 @@ Grafo* crearGrafoDesdeArchivo(const char* nombreArchivo) {
 
 // Función para imprimir el grafo
 void imprimirGrafo(Grafo* g) {
-    printf("\nRepresentación del grafo:\n");
+    printf("\nRepresentacion del grafo:\n");
     for (int i = 0; i < g->vertices; i++) {
-        printf("Vértice %d: ", i + 1);
+        printf("Vertice %d: ", i + 1);
         for (int j = 0; j < g->vertices; j++) {
             if (g->adyacencia[i][j] == 1) {
                 printf("%d ", j + 1);
@@ -284,13 +284,14 @@ int main() {
     char opcion;
     
     do {
-        printf("\n       Menú de opciones\n");
+        printf("\n       Menu de opciones\n");
         printf("1. Cargar grafo desde archivo\n");
         printf("2. Mostrar grafo\n");
-        printf("3. Calcular grado máximo y mínimo\n");
+        printf("3. Calcular grado maximo y minimo\n");
         printf("4. Verificar k-conexidad\n");
-        printf("5. Salir\n");
-        printf("Seleccione una opción: ");
+        printf("5. Conectividad del grafo\n");
+        printf("6. Salir\n");
+        printf("Seleccione una opcion: ");
         scanf(" %c", &opcion);
 
 
@@ -319,8 +320,8 @@ int main() {
 
             case '3':
                 if (grafo != NULL) {
-                    printf(VERDE "\nEl grado máximo del grafo es: %d\n", GradoMáximo(grafo));
-                    printf("\nEl grado mínimo del grafo es: %d\n"RESET, GradoMínimo(grafo));
+                    printf(VERDE "\nEl grado maximo del grafo es: %d\n", GradoMáximo(grafo));
+                    printf("\nEl grado minimo del grafo es: %d\n"RESET, GradoMínimo(grafo));
                 } else {
                     printf(ROJO "\nPrimero debe cargar un grafo.\n" RESET);
                 }
@@ -340,21 +341,33 @@ int main() {
                     printf(ROJO "\nPrimero debe cargar un grafo.\n" RESET);
                 }
                 break;
-
-
             case '5':
+                if (grafo != NULL) {
+                    int k = 1;
+                    while (esKConexo(grafo, k)) {
+                        k += 1;
+                    }
+
+                    printf("\nLa conectividad del grafo es %d\n", (k-1));
+                } else {
+                    printf(ROJO "\nPrimero debe cargar un grafo.\n" RESET);
+                }
+
+                break;
+
+            case '6':
                 printf(MORADO "Saliendo del programa...\n");
                 break;
 
 
             default:
-                printf(ROJO"\nOpción no válida.\n"RESET);
+                printf(ROJO"\nOpcion no valida.\n"RESET);
                 break;
         }
 
 
         if (opcion != '5') {
-            printf("\n¿Desea realizar otra acción? (" VERDE"s"RESET"/"ROJO"n"RESET"): ");
+            printf("\n¿Desea realizar otra accion? (" VERDE"s"RESET"/"ROJO"n"RESET"): ");
             scanf(" %c", &opcion);
             if (opcion == 'n' || opcion == 'N') {
                 printf(MORADO "\nSaliendo del programa...\n");
